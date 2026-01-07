@@ -1,0 +1,206 @@
+syntax = 'proto3';
+package clients;
+
+service ClientUserService {
+    rpc getAllClients(EmptyArgument) returns (ClientUsers);
+    rpc createClient(ClientUser) returns (ClientUser);
+}
+message ClientUsers {
+    repeated ClientUser clients = 1;
+}
+
+message ClientUser {
+    int32 id = 1;
+    string clientId = 2;
+    string clientSecret =3;
+    string firstName = 4;
+    string lastName = 5;
+    string clientName = 6;
+    string mobileNo = 7;
+    string emailId = 8;
+    string status = 9;
+    string appCode = 10;
+    string role = 11;
+    string createdDate = 12;
+    int32 createdBy = 13;
+    string updatedDate = 14;
+    int32 updatedBy = 15;
+}
+
+service ClientSessionService {
+    rpc createClientSession(ClientSession) returns (ClientSession);
+    rpc getClientSessionById(ClientSessionById) returns (ClientSession);
+}
+
+message ClientSessionById {
+   int32 id = 1;
+}
+message ClientSession {
+    int32 id = 1;
+    string clientId = 2;
+    string clientSecret = 3;
+    string clientToken  = 4;
+    string appCode = 5;
+    int32 createdBy = 6;
+    string createdDate = 7;
+    int32 updatedBy = 8;
+    string updatedDate = 9;
+    int32 deletedBy = 10;
+    string deletedDate = 11; 
+}
+
+service SettingService {
+    rpc getAll(EmptyArgument) returns (Settings);
+    rpc createSetting(Setting) returns (Setting);
+    rpc updateSetting(Setting) returns (Setting);
+    rpc deleteSetting(Setting) returns (Setting);
+    rpc searchSetting(SearchSettingBy) returns (Settings);
+}
+
+message Settings {
+    repeated Setting settings = 1;
+}
+
+message Setting {
+    int32 id = 1;
+    string appCode = 2;
+    string displayName = 3;
+    string name = 4;
+    string data = 5;
+    int32 status = 6;
+    int32 createdBy = 7;
+    string createdDate = 8;
+    int32 updatedBy = 9;
+    string updatedDate = 10;
+    int32 deletedBy = 11;
+    string deletedDate = 12;
+    repeated string names = 13;
+}
+
+message SearchSettingBy {
+    int32 id = 1;
+    string appCode = 2;
+    string displayName = 3;
+    string name = 4;
+    string data = 5;
+    int32 status = 6;
+    int32 createdBy = 7;
+    string createdDate = 8;
+    int32 updatedBy = 9;
+    string updatedDate = 10;
+    int32 deletedBy = 11;
+    string deletedDate = 12;
+    int32 take = 13;
+    int32 skip = 14;
+    string startDate = 15;
+    string endDate = 16;
+    repeated string names = 17;
+    string nameLike = 18;
+    repeated string appCodesIn = 19;
+}
+message EmptyArgument {}
+
+service OrderService {
+    rpc createOrder(Order) returns (Order);
+    rpc getAllOrders(EmptyArgument) returns (Orders);
+    rpc getOrderById(OrderById) returns (Order);
+    rpc updateOrder(Order) returns (Order);
+
+
+}
+
+message Orders {
+    repeated Order orders = 1;
+}
+message OrderItem { 
+    int32 productId = 1; 
+    string name = 2; 
+    int32 quantity = 3; 
+    double unitPrice = 4; 
+    double totalPrice = 5; 
+    }
+
+message Order {
+    int32 id =1;
+    string clientId = 2;
+    string orderNumber = 3;
+    string status = 4;
+    double subtotalAmount = 5;
+    double taxAmount  = 6;
+    double shippingAmount = 7;
+    double totalAmount = 8;
+    string paymentMethod = 9;
+    string paymentReference = 10;
+    string paymentId = 11;
+    repeated OrderItem orderItems = 12;
+    int32 createdBy = 13;
+    string createdDate = 14;
+    int32 updatedBy = 15;
+    string updatedDate = 16;
+}
+
+message OrderById {
+    int32 id = 1;
+}
+
+
+service ClientSettingsService {
+    rpc getAllClientSettings(EmptyArgument) returns (ClientSettings);
+    rpc createClientSettings(ClientSetting) returns (ClientSetting);
+    rpc getClientSettingsById(ClientSettingById) returns (ClientSetting);
+    rpc updateClientSettings(ClientSetting) returns (ClientSetting);
+
+}
+
+message ClientSettings {
+    repeated ClientSetting clientsettings = 1;
+}
+
+message ClientSetting {
+    int32 id = 1;
+    string clientId = 2;
+    string displayName = 3;
+    string name = 4;
+    string data = 5;
+    string status = 6;
+    int32 createdBy = 7;
+    string createdDate = 8;
+    int32 updatedBy = 9;
+    string updatedDate = 10;
+    int32 deletedBy = 11;
+    string deletedDate = 12;
+
+}
+
+message ClientSettingById {
+    int32 id = 1;
+}
+
+service ClientPaymentService { 
+    rpc getAllClientPayments(EmptyArgument) returns (ClientPayments); 
+    rpc createClientPayment(ClientPayment) returns (ClientPayment); 
+    rpc getClientPaymentById(ClientPaymentById) returns (ClientPayment); 
+    rpc updateClientPayment(ClientPayment) returns (ClientPayment); 
+}
+
+message ClientPayments { 
+    repeated ClientPayment clientpayments = 1; 
+}
+
+message ClientPayment { 
+    int32 id = 1; 
+    string clientId = 2; 
+    int32 orderId = 3; 
+    string paymentId = 4; 
+    string status = 5; 
+    string response = 6;  
+    int32 createdBy = 7; 
+    string createdDate = 8; 
+    int32 updatedBy = 9; 
+    string updatedDate = 10; 
+    int32 deletedBy = 11; 
+    string deletedDate = 12; 
+} 
+message ClientPaymentById { 
+    int32 id = 1; 
+}
