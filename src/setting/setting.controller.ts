@@ -77,7 +77,7 @@ export class SettingController {
         }
         if(searchSettingBy.displayName){
             where['displayName'] = searchSettingBy.displayName
-        }
+        } 
         if(searchSettingBy.displayName){
             where['displayName'] =  Like("%"+searchSettingBy.displayName+"%")
         }
