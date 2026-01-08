@@ -105,6 +105,8 @@ service OrderService {
     rpc getAllOrders(EmptyArgument) returns (Orders);
     rpc getOrderById(OrderById) returns (Order);
     rpc updateOrder(Order) returns (Order);
+    rpc deleteOrder(Order) returns (Order);
+
 
 
 }
@@ -149,6 +151,8 @@ service ClientSettingsService {
     rpc createClientSettings(ClientSetting) returns (ClientSetting);
     rpc getClientSettingsById(ClientSettingById) returns (ClientSetting);
     rpc updateClientSettings(ClientSetting) returns (ClientSetting);
+    rpc deleteClientSettings(ClientSetting) returns (ClientSetting);
+
 
 }
 

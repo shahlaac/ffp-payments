@@ -28,6 +28,16 @@ export class ClientSettingsService extends TypeOrmCrudService<ClientSettings> {
         return this.clientSettingsRepository.save(clientSettings);
 
     }
+    async deleteClientSettings(id:number,clientSetting:ClientSettings):Promise<any>{
+        const settingsFound = await this.clientSettingsRepository.findOne(id);
+        if(settingsFound == null){
+            throw new NotFoundException(`setting not found`)
+        }
+        clientSetting = this.clientSettingsRepository.merge(settingsFound,clientSetting);
+        return this.clientSettingsRepository.save(clientSetting)
+
+
+    }
 
 
 

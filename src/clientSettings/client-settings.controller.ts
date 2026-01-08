@@ -1,4 +1,4 @@
-import { Controller } from "@nestjs/common";
+import { Body, Controller } from "@nestjs/common";
 import { ClientSettingsService } from "./client-settings.service";
 import { ClientSettingsRepository } from "./client-settings.repository";
 import { GrpcMethod } from "@nestjs/microservices";
@@ -18,7 +18,7 @@ export class ClientSettingsController {
         
     }
     @GrpcMethod('ClientSettingsService','createClientSettings')
-    async createClientSettings(clientSetting:ClientSettings):Promise<ClientSettings> {
+    async createClientSettings(@Body() clientSetting:ClientSettings):Promise<ClientSettings> {
         const savedClientSettings = await this.clientSettingsService.createClientSettings(clientSetting)
         return this.clientSettingsService.findOne(savedClientSettings.id)
     }
@@ -28,8 +28,12 @@ export class ClientSettingsController {
         return result;
     }
      @GrpcMethod('ClientSettingsService','updateClientSettings')
-    async updateClientSettings(clientSetting : ClientSettings):Promise<ClientSettings>{
+    async updateClientSettings(@Body() clientSetting : ClientSettings):Promise<ClientSettings>{
         return await this.clientSettingsService.updateClientSettings(clientSetting.id,clientSetting)
+    }
+    @GrpcMethod('ClientSettingsService','deleteClientSettings')
+    async deleteClientSettings(@Body() clientSetting:ClientSettings ):Promise<any>{
+        return await this.clientSettingsService.deleteClientSettings(clientSetting.id,clientSetting)
     }
         
 

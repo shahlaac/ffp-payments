@@ -14,7 +14,7 @@ export class OrderService extends TypeOrmCrudService<Order> {
     }
     async getOrderById(id:number):Promise<Order> {
         return await this.orderRepository.findOne({where: {id}})
-
+ 
     }
     async updateOrder(orderId:number,updateOrder : Order) :Promise<Order>{
         const orderFound = await this.orderRepository.findOne(orderId)
@@ -24,5 +24,13 @@ export class OrderService extends TypeOrmCrudService<Order> {
         updateOrder = this.orderRepository.merge(orderFound,updateOrder)
 
         return  this.orderRepository.save(updateOrder)
+    }
+    async deleteOrder(id:number,order:Order):Promise<any> {
+        const orderFound = await this.orderRepository.findOne(id);
+        if(orderFound == null) {
+            throw new NotFoundException(`Order not Found`);
+        }
+        order = this.orderRepository.merge(orderFound,order)
+        return this.orderRepository.save(order);
     }
 }

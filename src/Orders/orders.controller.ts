@@ -16,7 +16,7 @@ export class OrderController {
         return response;
     }
     @GrpcMethod('OrderService','createOrder')
-    async createOrder( order : Order):Promise<Order>{
+    async createOrder(@Body() order : Order):Promise<Order>{
         const savedOrder = await this.orderService.createOrder(order)
         return this.orderService.findOne(savedOrder.id)
     }
@@ -26,7 +26,14 @@ export class OrderController {
         return result;
     }
     @GrpcMethod('OrderService','updateOrder')
-    async updateOrder(order : Order):Promise<Order>{
+    async updateOrder(@Body() order : Order):Promise<Order>{
         return await this.orderService.updateOrder(order.id,order)
     }
+    @GrpcMethod('OrderService','deleteOrder')
+    async deleteOrder(@Body() order:Order):Promise<any> {
+        return await this.orderService.deleteOrder(order.id,order);
+
+
+    }
+
 } 
